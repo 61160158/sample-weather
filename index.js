@@ -19,11 +19,10 @@ app.get('/weather', async (req, res) => {
         if (callLetters){
             query.callLetters = callLetters
         }
-        const cursor = collection.find(query).limit(10)
-        let weather = []
-        await cursor.forEach(doc => weather.push(doc.name))
-
-        res.send(weather)
+        const cursor = collection.find(query)
+        let data = []
+        await cursor.forEach(doc => data.push(doc.position , doc.callLetters , doc.airTemperature , doc.ts))
+        res.send(data)
     }
     catch(e) {
         console.log(e)
